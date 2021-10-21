@@ -6,7 +6,7 @@ exports.petPost = (req, res, next) => {
             const pet = new Pet({
                 nome: req.body.nome,
                 porte: req.body.porte,
-                servico: req.body.servico
+                horario: req.body.horario
             })
 
             pet.save().then((pet) => {
