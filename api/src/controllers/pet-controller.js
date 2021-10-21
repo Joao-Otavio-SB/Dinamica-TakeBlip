@@ -5,7 +5,8 @@ exports.petPost = (req, res, next) => {
         else{
             const pet = new Pet({
                 nome: req.body.nome,
-                nomeDono: req.body.nomeDono
+                porte: req.body.porte,
+                servico: req.body.servico
             })
 
             pet.save().then((pet) => {
@@ -20,7 +21,15 @@ exports.petPost = (req, res, next) => {
 exports.petGet = (req, res, next) => {
 
     Pet.findOne({nome: req.params.nome}).exec().then((pet) => {
-        if(pet.nome === req.params.nome) res.status(200).json({message: "Pet já cadastrado", valid: false})
-        else res.status(200).json({message: "Ok!", valid: false})
+        if(pet){
+            if(pet.nome === req.params.nome){
+                res.status(200).json({message: "Pet já cadastrado!", valid: false})
+            }else{
+                res.status(200).json({message: "Ok!", valid: true})
+            }
+        }
+        
+        res.status(200).json({message: "Ok!", valid: true})
+        
     })
 }
